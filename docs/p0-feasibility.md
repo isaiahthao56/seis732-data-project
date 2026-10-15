@@ -31,7 +31,7 @@ No visibile redistribution constrains - public government data
 | Proposed Question | Needed field | Canidate source objects | Why source appears sufficent | Gap or Assumption |
 | :--- |:--- |:--- |:--- |:--- |
 | What is the portion of low-income households enrolled SNAP by county/state? | Household income, household SNAP enrollment, geography | state_fips, snap_participating_households, total_households | The source contains aggregated counts of households enrolled by geographic regions | The smallest grain level is county, we can't analyze questions about how SNAP is being utilized |
-| What are key demographic identifiers that may explain SNAP enrollment gaps? | - | - | - | - |
+| What are key demographic identifiers that may explain SNAP enrollment gaps? | Demographics, county geography, household enrollment | census_demographics(age, sex, race, ethnicity), snap_participating_households | Joining to the Census data provides demographic information listed directly to SNAP enrollment by county | Since rows are time specific, it is necessary to provide a timeframe for analysis |
 
 **7. Feasibility risks and response**
 - insufficient grain, identifiers, date coverage, or descriptive context:
