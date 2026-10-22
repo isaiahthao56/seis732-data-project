@@ -1,3 +1,14 @@
+SELECT 
+    t1.FIPS,
+    
+    -- SNAP enrollment metrics
+    AVG(t1.SNAP_All_Participation_Persons) AS avg_snap_enrollment,
+    
+    -- Census ACS demographic & economic features
+    AVG(t2.total_pop) AS avg_total_population,
+    AVG(t2.poverty) AS avg_poverty_population,
+    AVG(t2.median_income) AS avg_median_household_income
+
 FROM 
     `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment` AS t1
 INNER JOIN 
@@ -7,7 +18,3 @@ GROUP BY
     t1.FIPS
 ORDER BY 
     avg_snap_enrollment DESC;
-
-SELECT * FROM `bigquery-public-data.census_bureau_acs.county_2020_5yr` LIMIT 1;
-SELECT * FROM `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment` LIMIT 10;
-
