@@ -1,9 +1,10 @@
-**Evaluating the geographical and demographic program reach of SNAP**
+Project title: *Longitudinal Analysis of Low-Income Housing in the US*
 
-The purpose of this project is to analyze how demographic and geographic features may affect the gap in SNAP enrollment. 
+Author: Isaiah Thao
 
-BigData SNAP data: [https://console.cloud.google.com/marketplace/product/us-dept-agriculture/snap-enrollment-by-county]
+Description: This project aims to identify patterns in affordable housing projects that have changed over time specifically in response to large economic downturns. The goal of the project is to identify features of affordable housing projects than can be improved to aid the gap in underserved demographics. 
 
-* Feasibility Document: [docs/p0-feasibility.md](docs/p0-feasibility.md)
-* Feasibility SQL: [sql/00_feasibility.sql](sql/00_feasibility.sql)
-* Summarized Evidence: [evidence/p0-feasibility-results.md](evidence/p0-feasibility-results.md)
+Project Links:
+P0-Feasibility Document: docs/p0-feasibility.md
+P0-SQL: sql/00_feasibility.sql
+P0-Results: evidence/p0-feasibility-results.md

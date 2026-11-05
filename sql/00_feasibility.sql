@@ -1,33 +1,31 @@
--- SQL Code for Feasibility
-
 -- Record the authorized objects and inspect their definitions.
-SELECT 
-    column_name, 
-    data_type, 
-    is_nullable 
-FROM 
-    `bigquery-public-data.sdoh_snap_enrollment.INFORMATION_SCHEMA.COLUMNS` 
-WHERE 
-    table_name = 'snap_enrollment' 
-ORDER BY 
-    ordinal_position;
+SELECT column_name, data_type, is_nullable
+FROM `seis-732-project-1.lihtc_2024_dataset.INFORMATION_SCHEMA.COLUMNS`
+WHERE table_name = 'lihtc_2024_table'
+ORDER BY ordinal_position;
 
 -- Establish basic scale without exporting row-level data.
 SELECT COUNT(*) AS row_count
-FROM `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment`;
+FROM `seis-732-project-1.lihtc_2024_dataset.lihtc_2024_table`;
 
 -- Test the time coverage and candidate identifier relevant to the idea.
-SELECT    
-    MIN(Date) AS earliest_date, 
-    MAX(Date) AS latest_date,    
-    COUNTIF(FIPS IS NULL) AS null_candidate_ids,    
-    COUNT(DISTINCT FIPS) AS distinct_candidate_ids 
-FROM 
-    `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment`;
+SELECT
+    MIN(yr_pis) AS earliest_date,
+    MAX(yr_pis) AS latest_date,
+    COUNTIF(hud_id IS NULL) AS null_candidate_ids,
+    COUNT(DISTINCT hud_id) AS distinct_candidate_ids
+FROM `seis-732-project-1.lihtc_2024_dataset.lihtc_2024_table`
+WHERE yr_pis IS NOT NULL
+  AND yr_pis > 1900
+  AND yr_pis < 3000;
+--There are rows with year = 9999 and 0.
 
+-- Repeated row count 
 SELECT 
-  COUNTIF(FIPS IS NULL) AS fips_nulls,
-  COUNTIF(Date IS NULL) AS date_nulls,
-  -- Add any other specific columns you want to spot-check quickly
-FROM 
-  `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment`;
+    hud_id, 
+    COUNT(*) AS record_count
+FROM `seis-732-project-1.lihtc_2024_dataset.lihtc_2024_table`
+WHERE hud_id IS NOT NULL
+GROUP BY hud_id
+HAVING COUNT(*) > 1
+ORDER BY record_count DESC;

@@ -1,10 +1,7 @@
-#Feasibility evidence Markdown
+Table:
+There are 90 columns and 55430 rows.
 
-Row count: 40310
-fips_nulls(canidate_key): 0
-date_nulls: 0
-distinct_fips: 2579
+There are no null or repeated canidate key rows.
 
-earliest date: 2012-01-01
-latest date: 2019-01-01
+yr_pis ranges from 0 to 9999. Interpretable years range from 1987 to 2027. From the source, this table contains data on projects from 1987 to 2024.
 

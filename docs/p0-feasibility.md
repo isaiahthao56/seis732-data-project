@@ -1,48 +1,53 @@
-**1. Working Title:** *Evaluating the geographical and demographic program reach of SNAP.*
+**1. Working Title:** *Longitudinal Analysis of Low-Income Housing in Minnesota*
 
 **2. Audience and need:**
-- Audience: SNAP operates under a Federal-State level control; state agencies have the most control over who and where SNAP programs operate. 
-- User groups: Counties that contain large portions of elidgible households that are not enrolled. Spread awarness to areas in the US that could benefit the most from SNAP and similar programs.
--This project would analyze the effictiveness of the current SNAP market penetration. It could also test whether there are certain geographical/demographic barriers that restrict enrollment. 
-- If sucessful, this project could be used to implement policies or outreaches for communities with the largest service gaps.
+
+The audience of this project is affordable housing developers and local policy makers. The current problem that the audience faces is identifying ways to ensure housing for low-income and underserved families. The main aim of this project is to identify underserved areas for future development. This project would be useful because it would identify patterns in past trends and predict current housing needs. With this information, affordable housing planners would be able to appropiately invest into areas that would benefit thier users the most.
 
 **3. Dashboard:**
-    a. What is the portion of low-income households enrolled SNAP by county/state?
-    b. What are key demographic identifiers that may explain SNAP enrollment gaps?
-    c. Which counties in the US could benefit the most from SNAP enrollment?
-    d. How has SNAP enrollment changed over time?
+The first option for a product is a dashboard; that provides summarizing predictions on future housing needs. 
+
+ -  Is there a signficant shift from urban to suburban projects in recent years?
+ -  Is there a correlation between the number or higher-density multi-family projects and increased housing prices?
+ -  What are the impacts of large economic downturns -such as covid- on affordable housing devlopments?
 
 **4. Souce Identification:**
-Dataset: "SNAP Enrollment"
-Source: US Department of Agriculture
-BigQuery Table ID: bigquery-public-data.sdoh_snap_enrollment.snap_enrollment
-Source is approved from bigquery-public-data and accessible 
-No visibile redistribution constrains - public government data
+Dataset name: LIHTCPUB
+
+Provider: US Department of Housing and Urban Development
+
+Dataset Source: https://www.huduser.gov/lihtc/ (Whole dataset download)
+
+The LIHTC is a public dataset published and maintained by the US government. The dataset is open to the public and does not contain sensitive information. There are no constraints other than appropiate attribution to the source. 
 
 **5. Quick Source Profile**
-- One row represents a specific geogrpahical area (ZIP code ot county) during a specific time period (month or year) and counts of households enrolled in Public Assistance programs (SNAP/EBT). 
-- Current row count: 40310
-- Possible ID: FIPS (geographical key)
-- No NULL dates or IDs
-- Fields likely to support proposed questions: FIPS, Date, SNAP_All_Participation_Persons, SNAP_All_Participation_Households, SNAP_All_Issuance
-- Historical dataset that is not updated regularly. Dates range from 2012 to 2019
+One row represents a single recorded LIHTC project or development property. 
+
+Row count: 55,340
+
+Year range: 1987 to 2027 - yr_pis is years placed in service, it includes future and past dates because it is a planned year, not actual. 
+
+Canidate Identifier: hud_id
+
+Relevant Fields: hud_id, yr_pis, yr_alloc (year tax credit is allocated), n_units (total), li_units (low-income units), proj_state, proj_zip, metro (binary), trg (target demographic)
+
+Nulls: There are 90 fields, many of which are nullable and do not contain any rows. 
+
+There are no duplicated rows of hud_id. Data is published yearly and does not require refreshing. These projects are real locations with addresses listed but are made public. 
 
 **6. Need to Source fit**
 | Proposed Question | Needed field | Canidate source objects | Why source appears sufficent | Gap or Assumption |
 | :--- |:--- |:--- |:--- |:--- |
-| What is the portion of low-income households enrolled SNAP by county/state? | Household income, household SNAP enrollment, geography | state_fips, snap_participating_households, total_households | The source contains aggregated counts of households enrolled by geographic regions | The smallest grain level is county, we can't analyze questions about how SNAP is being utilized |
-| What are key demographic identifiers that may explain SNAP enrollment gaps? | Demographics, county geography, household enrollment | census_demographics(age, sex, race, ethnicity), snap_participating_households | Joining to the Census data provides demographic information listed directly to SNAP enrollment by county | Since rows are time specific, it is necessary to provide a timeframe for analysis |
+| Is there a shift from urban to suburban in recent years | Geographic urban vs suburban and date | yr_alloc, metro, proh_zip | There are several geographic levels and date is recorded | Date is recorded yearly and yr_pis is used because it represents the actual time property is in effect. |
 
 **7. Feasibility risks and response**
-- insufficient grain, identifiers, date coverage, or descriptive context:
+Static data and yearly grain: The dataset is update annully and it does not contain monthly updates. This means we can only compare by year which broadens the focus of analyzing specific events (covid). 
 
-One limitation of this dataset is that it does not provide information on the effectiveness of the SNAP program itself. The data only provides information of specific welfare program enrollment at the country and state grain. This project will focus on the reach of SNAP with the assumption that SNAP enrollment increases quality of life for households. 
-
-- static data that will require a later change case: This data set only contains historical data only up to 2019. Unfortunately this means that we cannot analyze the impact of recent political changes and the Covid-pandemic. Applying the historical findings to current/future forecasts would require a large amount of evidence because the socioeconomic states are very different. 
+Unclear fields: This table contains 90 columns, many of which require another document to find descriptions. Many of these fields are not usefull for this project however the large number of nulls may be distracting. 
 
 **8. First P1 decision**
-One of the first issues that I expect to resolve in P1 is identifying which other data tables I will join to the SNAP enrollment table. I have identified the US Census table: `bigquery-public-data.census_bureau_usa` as a necessary component to include to answer the proposed questions about demographics. With additional tables, I will be able to analyze various features that affect enrollment not included in the SNAP table.
+In P-1 the goal is to identify all of the columns that will be useful and create a table without unneccessary fields. 
 
 
 **9. AI/tool accountability**
-Google Gemini was used in the project topic exploration stage. Gemini was also used to identify additional relevant public datasets such as the US census. These datasets were verified to be accessible on the `biqquery-public-data project`.
+AI was used in the process of uploading the table into Big Query. AI was also used to narrow down the topic with the given data. 
