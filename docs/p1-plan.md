@@ -29,7 +29,7 @@ Grain: One row represents one version of a project at the year they are put in s
 
 Consequential Modeling Choice: In this analysis, each row will represent a version of a project. This means that rows in the fact table could point to an existing project but, with updated values. This fits the grain because projects can be put in service in multiple years. In addition, projects can change it's values such as the number of low-income units. This preserves history because the tables retain certain versions of projects.
 
-![Model](Images\seis_732_p1_image1.PNG)
+![Model](docs/Images/seis_732_p1_image1.PNG)
 
 Tracing Primary Question: The main question is, How has the count of new projects changed throughout the years? In order to answer this question, the necessary fields are: hud_id, project and initial_yr_pis. This question asks to identify new projects, this matches projects to the version where they first appeared in the data. In the dim_project table, the *initial_yr_pis* is the year that provides this information. Tracing this question, we begin by filtering/grouping projects by *initial_yr_pis* then joining to the *dim_project* to *fact_lihtc* on *hud_id*. Finally, we select the desired count and variables from the fact table. More complex queries such as number of 1 or 2 bedroom units can be simply added in the select.
 
