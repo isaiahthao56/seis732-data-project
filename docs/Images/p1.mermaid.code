@@ -1,0 +1,33 @@
+erDiagram
+    FACT_LIHTC_ALLOCATION {
+        string hud_id PK
+        string project FK
+        int allocyr
+        int yr_pis
+        float total_units
+        float low_income_units
+    }
+
+    DIM_PROJECT {
+        string project PK
+        int initial_yr_pis
+        int final_yr_pis
+        int total_allocations_or_buildings
+        float total_units
+        float total_low_income_units
+        float pct_low_income_units
+    }
+
+    DIM_GEOGRAPHY {
+        string zip_code PK
+        string state
+        string metro_status
+    }
+
+    DIM_TIME {
+        int year PK
+    }
+
+    DIM_PROJECT ||--o{ FACT_LIHTC_ALLOCATION : "has phases/allocations"
+    DIM_GEOGRAPHY ||--o{ FACT_LIHTC_ALLOCATION : "located in"
+    DIM_TIME ||--o{ FACT_LIHTC_ALLOCATION : "placed in service year"
